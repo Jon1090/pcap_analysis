@@ -1,0 +1,11 @@
+Pcap analysis using Wireshark on pcap provided by Malware-Trafic-Analysis.net (https://www.malware-traffic-analysis.net/2015/03/31/index.html)
+
+The short story: A user clicked a malicious attachment in an email and was infected with a Dridex trojan.
+
+There is very little background information about the circumstances of this pcap file. The protocol hierarchy reveals that 80% of traffic is HTTP and all tcp conversations involve
+machine 10.200.2.252, our host machine. Filtering by http.request.method=="GET" narrows down our search to eight packets. Six of the packets have legitimate referrers and are less suspicious
+(youtube, bing, msn, bing again, twitter, and google). The remaining two packets involve IP address 185.91.175.63 and have a suspicious g39b2cx.exe attachment (packets 4 and 1621).
+Exporting this file and creating an MD5 hash (107a3bef0da9ab2b42e3e0f9f843093b) allows submission to Total Virus. Total Virus identifies this file as Dridex malware (https://www.virustotal.com/gui/file/7c9d5724064693dfeef76fd4da8d6f159ef0e6707e67c4a692a03e94f4a6e27a).
+Dridex is a trojan that focuses on stealing banking and financial credentials. Other ways to identify this malware are to google the suspicious IP address (185.91.175.63), which reveals
+numerous results about Dridex malware (https://blogs.cisco.com/security/talos/spam-dridex, https://blog.talosintelligence.com/threat-spotlight-spam-served-with-side/). In this case, a user
+clicked a malicious word document attachment in an email file and was infected.
