@@ -1,0 +1,15 @@
+Pcap analysis using Wireshark on pcap provided by Malware-Trafic-Analysis.net (https://www.malware-traffic-analysis.net/2015/08/31/index.html)
+
+1. IP address, MAC, and hostname of infected machine: 192.168.13.239, 00:02:a5:1c:d4:92, Googenheim-PC
+2. Type of malware: Ransomware
+3. ID of compromised website: http://vitaminsthatrock.com, 64.20.39.203
+
+Filtering by http.request still leaves many packets to look through. Luckily, some of the packets jump out as suspicious, particularly a series of packets with the host name of vclphjybj.ioxbpjgtqvwqfzmwhn.ga (46.108.156.181)
+using an unusual port 13390. The DNS query for this unusual .ga domain name can be found in packet 8700, but doesn't reveal any more useful information. Performing a URL search on Total Virus reveals vclphjybj.ioxbpjgtqvwqfzmwhn.ga
+is a malicious website but doesn't consistently identify the malware. Following the tcp stream from one of these packets reveals the referer as http://vitaminsthatrock.com, finding the infected website. Another IOC is packet 9328, 
+also communicating on port 13390. Searching for packets with the string vclphjybj locates packet 10719, hosted by vitaminsthatrock.com. Extracting the 70kb text/html file in this packet or following the 
+http stream reveals an iframe to vclphjybj.ioxbpjgtqvwqfzmwhn.ga:13390giant/1171219/host-dare-creature-valley-pour-tunnel-sense-season-thumb-soft. This again confirms that vitaminsthatrock.com is the
+infected host and reveals how 192.168.13.239 was directed to the malicious site. An MD5 hash of the extracted file (44c41f89c5f330ed89bc8013a83e8f67) can also be used to search Total Virus and confirm it is malicious. 
+Returning to the http.request filter to try and identify the malware, there is another suspicious domain, lk2gaflsgh.jgy658snfyfnvh.com, which Total Virus identifies as a command and control server. By identifying a suspicious /img/button_pay.png in packet 12795, 
+or following the http streams from lk2gaflsgh.jgy658snfyfnvh.com, the actual ransomware page itself can be found (tcp.stream eq 152 or packet 12782). This page confirms that the attacker has utilized ransomware to encrypt files, 
+and requests $500 to decrypt them.
