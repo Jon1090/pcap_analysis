@@ -1,0 +1,11 @@
+Pcap provided from https://malware-traffic-analysis.net/2015/07/24/index.html
+
+Filtering by DHCP we can find the host name and mac address. Packet 44321 in the DHCP request shows the host name is Leonardo-PC with a MAC address of 80:c1:6e:6a:ob:f2.
+I filter by http.request to find the user-agent in an http packet. In packet 67 we can see it is listed as Windows NT 6.1 rv:11.0 (Windows NT 6.1; Trident/7.0; rv:11.0).
+A quick google search shows this system is running Windows 7 and Internet Explorer 11. I then use the terminal command sudo so-import-pcap to import the pcap into Security Onion
+and generate alerts. We can see suricata flags a couple alerts for the exploit kit and includes the source ip address of 202.152.48.35. Using this in Wireshark, we
+can find the compromised website by filtering with ip.addr==202.152.48.35 and following the tcp stream in packet 51283. The compromised website is revealed as http://www.twentyone-development.com/.
+SO also provides details of the CryptoWall Check-ins, resulting in several malicious IPs being discovered including: 198.211.120.49, 212.90.148.43, and 213.238.166.230.
+SO alerts also show that there is a possible Flash vulnerability that should be investigated. I filtered packets in wireshark that included "flash" and used packet 54687.
+Following the TCP stream from this packet reveals the flash version as 18.0.0.203. Searching for this vulnerability at cve.mitre.org reveals numerous vulnerabilities discovered 
+recently before the host infection. A final SO alert shows us the packets that Cryptowall makes to determine the host's ip address. Another lesson to always keep backups of your important data!
