@@ -13,3 +13,6 @@ infected host and reveals how 192.168.13.239 was directed to the malicious site.
 Returning to the http.request filter to try and identify the malware, there is another suspicious domain, lk2gaflsgh.jgy658snfyfnvh.com, which Total Virus identifies as a command and control server. By identifying a suspicious /img/button_pay.png in packet 12795, 
 or following the http streams from lk2gaflsgh.jgy658snfyfnvh.com, the actual ransomware page itself can be found (tcp.stream eq 152 or packet 12782). This page confirms that the attacker has utilized ransomware to encrypt files, 
 and requests $500 to decrypt them.
+
+Initially I was unable to determine the exact malware. After running the pcap through Security Onion, there is some additional information. SO shows that this is indeed ransomware and is Alphacrypt/TeslaCrypt. SO also confirms the malicious
+domains *.ga mentioned earlier and finds the CnC beacons. Running the pcap through SO is a convenient way to drill down further into what actually happened.
