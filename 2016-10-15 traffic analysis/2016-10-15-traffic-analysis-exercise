@@ -1,0 +1,21 @@
+This was a very fun pcap to analyze with a great background story.
+
+Pcap provided by https://www.malware-traffic-analysis.net/2016/10/15/index.html
+
+1. From the first incident in the provided alert, I start by sorting the pcap for http.request && ip.addr==50.56.223.21. I follow the http
+stream from packet 14052 and notice there is an iframe hidden with a nasty on-hover redirect to a long link simplified here as http://rew.kaghaan.com.
+
+2. Next, I search for the packets with the http://rew.kaghaan.com URL and follow the http stream from packet 14338.
+This website has the IP address 109.234.36.251 which matches our next alert, so we are on the right track. Our referring page is http://unwrappedphotos.com, and 
+we can find the exploit kit delivery here as well in a gzip.
+
+3. Next on the alerts, we can find the packets with the C&C check ins by investigating IP 31.184.234.0, starting with packet 15209. We can also see that the
+ destination is incrementing its ip address by one for each check in.
+
+4. Moving on, we can identify the transfer of the ransomware itself from the next alert and using the IP as a filter. It is delivered by ffoqr3ug7m726zou.19jmfr.top in another gzip.
+
+5. Finally, I wanted to see the ransomware page itself. Continuing to follow the http streams will eventually reveal it in packet 19691, or a quick shortcut would be to search
+for packets with the strings "encrypted", "bitcoin", or "decrypt" since the scenario hints at ransomware. We can see that this malware claims to be CERBER and has encrypted 
+the users documents, photos, databases, and more. There is nothing we can do to help the businessman get his files back, and it doesn't sound like he had any backups either.
+It is indeed a sad day for this businessman.
+
