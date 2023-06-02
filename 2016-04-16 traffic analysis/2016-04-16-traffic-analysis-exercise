@@ -1,0 +1,18 @@
+Pcap provided by https://www.malware-traffic-analysis.net/2016/04/16/index.html
+
+TLDR- Manny submits his credentials and private info to a fake paypal site before being redirected to the official paypal URL.
+
+The host can be identified as 173.16.155.149 with MAC address of Dell_83:a5:69 (00:24:e8:83:a5:69) by looking at DHCP information in packet 3.
+The host name MANNY_PC can be found by looking at packet 12 and the NBNS information. 
+
+Initially, I looked for signs of malware infections, but was unable to find any. There were no suspicious downloads, hosts, long random string file names,
+or other clues of the sort that I could find. 
+
+1. I sorted by http.request and began to look at POST requests to try and find if Manny would submit his full name in a form. In POST requests
+to billinggoldspal.com (91.194.91.203), Manny submits his email, manny.lehman@mailinator.com, inferring his name is Manny Lehman. Manny also submits
+his password ("onecooldude") over http, which is a sign of a phishing operation. 
+
+2. Reviewing more http streams from billinggoldspal.com, there is a fake paypal login that Manny has been submitting his credentials and lots of 
+identifying information to in following POST requests.
+
+3. At the end of the credential submissions, a redirect is sent to the correct paypal URL. Manny has had his credentials succesfully stolen. 
