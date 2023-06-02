@@ -10,7 +10,7 @@ or other clues of the sort that I could find.
 
 1. I sorted by http.request and began to look at POST requests to try and find if Manny would submit his full name in a form. In POST requests
 to billinggoldspal.com (91.194.91.203), Manny submits his email, manny.lehman@mailinator.com, inferring his name is Manny Lehman. Manny also submits
-his password ("onecooldude") over http, which is a sign of a phishing operation. 
+his password ("onecooldude") over http, which is a never secure. 
 
 2. Reviewing more http streams from billinggoldspal.com, there is a fake paypal login that Manny has been submitting his credentials and lots of 
 identifying information to in following POST requests.
