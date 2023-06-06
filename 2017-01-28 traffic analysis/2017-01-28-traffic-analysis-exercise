@@ -1,0 +1,19 @@
+pcap provided by https://www.malware-traffic-analysis.net/2017/01/28/index.html
+
+The host name, IP, and MAC address can be derived from the NBNS traffic at the start of the pcap file (Stewie-PC, 172.16.4.193, Dell_02:a8:e4 (5c:26:0a:02:a8:e4) ).
+The approximate time of infection is 2017-01-27 at 22:54 UTC.
+
+1. Filtering by http.request, I ended up working backwards on this pcap. I noticed a suspicious host ending in .top (198.105.121.50 p27dokhpz2n7nvgr.1jw2lx.top).
+Following this http stream, I was able to find the ransomware page itself. The ransomware is from Cerber and has encrypted Stewie's files.
+
+2. Finding the referrer and source for the ransomware and .top domain lead me to tyu.benme.com (194.87.234.129). This is the source of the exploit kit.
+
+3. After finding the source of the EK, it was simple to find the compromised website by searching for the packet with the first appearance of tyu.benme.com.
+The infected website is www.homeimprovement.com (104.28.18.74). The redirect is hidden in an iframe.
+
+4. Lots of post infection traffic is captured in this pcap as the host communicates with the cerber server over UDP.
+
+5. This pcap challenges the analyst to find the search that lead to the compromised website. By looking throuhg the Bing search requests, I was able to find
+the search term in the URL http request. Stewie searched for "home improvement remodeling kitchen".
+
+
