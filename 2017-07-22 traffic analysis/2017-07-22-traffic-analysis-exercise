@@ -1,0 +1,16 @@
+pcap file provided by https://www.malware-traffic-analysis.net/2017/07/22/index.html
+
+Opening up this pcap file, I found that there are 3 different hosts that could have been infected:
+  176.16.45.52 Steinman-PC 
+  172.16.45.98 Mean-Gene-PC
+  172.16.45.172 Android device
+
+1. To quickly try and determine the infected device, I filtered using "http.request or ssl.handshake.type==1 or dns", leaving about 800 packets.
+Scrolling through, I noticed a suspicious IP self lookup by 172.16.45.98 to myexternalip.com. This is a strong signal that Mean-Gene-PC is the compromised
+host.
+
+2. Adding an && ip.addr==172.16.45.98 to my original filter, Mean-Gene is revealed to have extensive communications with service.tellepizza.com. This includes
+many short snippets of communication of scrambled data, large encrypted file transfers, and certificate exchanges. This is indicative of an infected host.
+
+If the communications from Mean-Gene are isolated into a smaller pcap and ran through Security Onion, SO will reveal that there is a likely Zyklon trojan infection.
+SO confirms our suspicions that we had selected the correct infected host and found some of the IOCs.
