@@ -1,0 +1,20 @@
+pcap provided by https://www.malware-traffic-analysis.net/2017/10/21/index.html
+
+From the NBNS and DHCP packets near the start of the pcap, the host is determined to be: 10.0.1.95, DELOREAN-PC, with MAC address of: SUSTekC_6a:b2:1f
+(60:a4:4c:6a:b2:1f)
+
+1. I began sorting with the filter "http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns"***, and immediately noticed a .exe download from
+jgbennett.com. Extracting this file and finding the shaw sum (a56876fd456d0737eecc4a8bbe3154b35314ab28accb29abf0df7c518c81a490) can be used to submit it
+to Total Virus, which confirms this is a Chthonic banking trojan.
+
+2. Shortly after the .exe download, lots of post infection traffic can be seen going to amellet.bit.
+
+3. Continuing on, there is a seemingly unrelated page to the trojan that claims the computer has been infected with malware. This page poses as a fake anti virus
+on http://krep2010123.tk (162.244.35.36). The page urges the host to call 888-779-0939 or risk all of their files, likely for a scam.
+
+4. The redirect to this page can be found on helpcenterforall.bid (162.244.35.33).
+
+The user has already been confirmed as being infected with a trojan, hopefully they don't fall for the tech support scam as well.
+
+
+*** Why this filter? Check out the great tutorials from Brad at https://www.malware-traffic-analysis.net/tutorials/index.html
