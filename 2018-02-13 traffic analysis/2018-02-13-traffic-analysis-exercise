@@ -1,0 +1,19 @@
+pcap provided by https://www.malware-traffic-analysis.net/2018/02/13/index.html
+
+1. This packet provided some challenges as it is not the usual traffic I have come to expect. The protocol heirarchy reveals there is extremely little
+http traffic, and there are also almost no extracatable objects from the pcap, meaning the pcap didn't likely capture the web traffic resulting in the infection.
+My usual starting filter, "hhtp.request or ssl.handshake.type==1 or dns", provides no help. Looking through the pcap, there are large conversations with an 
+amazon server, and an ipv4 185.86.151.37. The time of the capture is 2018-02-13 5:06UTC.
+
+Thankfully, this pcap can be ran through my Security Onion import setup to generate alerts.
+
+2. SO reveals that there is malicious traffic between our host 10.23.1.205 and 185.86.151.37, and identifies it as likely Dark Komet. Researching Dark Komet
+and looking at confirmed instances of Dark Komet traffic looks very similar to the pcap traffic. While this infection uses port 2200, another 
+typical port may include 1126 or 1604.
+
+In order to figure out more about the host 10.23.1.205, I filtered for NBNS traffic. The host name is Reginald-PC with MAC address Msi_f9:42:e5 (00:16:17:f9:42:e5).
+The user logs in using Kerberos. The domain controller is Moondustries (10.23.1.7). Attempting to find Reginald's username is slightly more challenging. I was able to 
+find the account name "reginald.farnsworth" by searching for packets with the string "cname", but this method is not very convenient. Some researching and 
+help from the malware traffic analysis blogs provide the search string "kerberos.CNameString and !(kerberos.CNameString contains $)" for next time.
+
+
