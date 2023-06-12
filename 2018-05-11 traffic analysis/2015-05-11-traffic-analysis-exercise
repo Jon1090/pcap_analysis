@@ -1,0 +1,20 @@
+pcap provided by https://www.malware-traffic-analysis.net/2018/05/11/index.html
+
+This incident happened on 2018-05-11 at 02:08 UTC. The infected computer is 10.0.14.129, with MAC address ASUSTekC_06:5c:7b (00:1a:92:06:5c:7b). The host
+name is Chicago-7Fa3-PC which can found by looking at the NBNS traffic. Searching the kerberos traffic (KRB5) reveals the user name as faith.hoffman. A
+useful Wireshark filter to pick out kerberos host names is "kerberos.CNameString and !(kerberos.CNameString contains $)".
+
+To cut down on the packets and try and identify the source of the malware, I filtered by "http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns".
+
+1. The first IOC I noticed was multiple short and frequent scrambled/encrypted post requests to lysedsohap.com (185.43.223.6).
+
+2. The second IOCs are a series of three downloads from wansaiful.com (11.90.144.30) called easy media download.
+
+Searching Total virus for these domains returns clean results. However, Google results indicate that they are both connected with malware.
+
+3,4. The main malware traffic is to robwassotdint.ru (185.43.223.6). Inspecting the certificate for the TLS traffic reveals it is invalid as it inclues
+fake/default company names and locations ("tls.handshake.type==11" is useful to find and manually inspect certificate information). 
+
+5. Total virus indicates robwassotdint is connected to spyware and bot networks. Brad Duncan suggests that this is a Hancitor infection, but without being 
+able to pull a sample from the pcap and identify the sha256 hash, there is no way to conclusively identify the malware.
+
