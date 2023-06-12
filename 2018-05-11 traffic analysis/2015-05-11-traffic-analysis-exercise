@@ -6,7 +6,8 @@ useful Wireshark filter to pick out kerberos host names is "kerberos.CNameString
 
 To cut down on the packets and try and identify the source of the malware, I filtered by "http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns".
 
-1. The first IOC I noticed was multiple short and frequent scrambled/encrypted post requests to lysedsohap.com (185.43.223.6).
+1. The first IOC I noticed was multiple short and frequent scrambled/encrypted post requests to lysedsohap.com (185.43.223.6). These post requests reveal
+the infected host's IP as 173.236.53.182 and they are using Windows 7 (Win 6.1).
 
 2. The second IOCs are a series of three downloads from wansaiful.com (11.90.144.30) called easy media download.
 
