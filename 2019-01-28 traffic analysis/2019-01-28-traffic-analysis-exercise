@@ -1,0 +1,20 @@
+pcap provided by https://www.malware-traffic-analysis.net/2019/01/28/index.html
+
+
+The approximate time of infection is 2019-01-28 21:49 UTC. Looking the DHCP packets, the host is 172.17.8.109, DUNN_WINDOWS_PC with MAC address of 
+Dell_d4:15:ca (14:fe:b5:d4:15:ca). The kerberos traffic will show the username is margaret.dunn. A good filter for finding usernames in kerberos traffic is
+"kerberos.CNameString and !(kerberos.CNameString contains $)".
+
+1. I always start with the basic filter "http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns". From this filter, there is an immediately suspicious http download over port 8000 for a windows
+executable titled 'avtic.bin'. Inspecting this traffic confirms it is an .exe as the binary start with 'MZ' and the telltale '!This program cannot be run in DOS mode'. It is also suspicious that the domain 
+name is unresolved as users very rarely type an ip address in directly. 
+
+2. The sha256 sum for this .exe is 9f6e3e65aedca997c6445329663bd1d279392a34cfda7d1b56461eb41641fa08. Virus Total identifies this as Dridex, which aligns with the provided alerts.
+
+3. We can see plenty of post infection traffic to 192.241.220.183 over port 3389 (usually used for Remote Desktop Protocol!). This traffic also includes a fake certificate with a high entropy common name,
+unusual country and locality, and is also flagged by the provided alerts.
+
+4. Further along, there is more post infection traffic to 216.239.94.252 over port 443. This also includes a suspicious certificate with similar abnormalities in the preceding step. 
+
+This is a pretty simple case of a user downloading a malicious file and becoming infected. Dridex targets financial institutions and corporations, and has the ability to check if a user is part of a domain
+before proceeding with full infection. Unfortunately, margaret.dunn is part of the Timbershade domain, and the .exe appears to have executed fully.
