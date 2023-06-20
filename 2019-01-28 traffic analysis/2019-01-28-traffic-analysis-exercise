@@ -6,7 +6,7 @@ Dell_d4:15:ca (14:fe:b5:d4:15:ca). The kerberos traffic will show the username i
 "kerberos.CNameString and !(kerberos.CNameString contains $)".
 
 1. I always start with the basic filter "http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns". From this filter, there is an immediately suspicious http download over port 8000 for a windows
-executable titled 'avtic.bin'. Inspecting this traffic confirms it is an .exe as the binary start with 'MZ' and the telltale '!This program cannot be run in DOS mode'. It is also suspicious that the domain 
+executable titled 'actiV.bin'. Inspecting this traffic confirms it is an .exe as the binary start with 'MZ' and the telltale '!This program cannot be run in DOS mode'. It is also suspicious that the domain 
 name is unresolved as users very rarely type an ip address in directly. 
 
 2. The sha256 sum for this .exe is 9f6e3e65aedca997c6445329663bd1d279392a34cfda7d1b56461eb41641fa08. Virus Total identifies this as Dridex, which aligns with the provided alerts.
