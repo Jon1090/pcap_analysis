@@ -1,0 +1,24 @@
+pcap from https://www.malware-traffic-analysis.net/2019/02/23/index.html
+
+We are prompted to find the infected host and all six of the .exe files downloaded.
+
+There are two possible hosts that could be infected in this file, 10.2.23.231, and 10.2.23.109. Looking at the alerts quickly reveals that the infected host is likely to be 10.2.23.231. There are some alerts
+for 10.2.23.109 for an external blue exploit, but it is unsuccesful. The host information for 10.2.23.231 is MAC HewlettP_9f:c0:2d (00:11:0a:9f:c0:2d) as Ferguson-Win-PC. The kerberos traffic reveals the
+username to be ruby.ferguson. The time of infection is roughly 2019-02-23 19:27 UTC.
+
+I always start with the basic filter 'http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns'. I am looking for 6 .exe downloads, and two are immediately apparent. Ruby downloads Tinx86_14.exe from 46.249.62.199
+and Sw9JKmXqaSj.exe from 46.249.62.199 as well. The other 4 executables are disguised as png and jpg files. Looking at the http get requests and following the http streams, it becomes quickly apparent that these
+picture format files are actually Windows executables. This can be noted as the files start with 'MZ' and include the text '!This program cannot be run in DOS mode'. In total, the 6 downloaded malicious files are:
+
+  Tinx86_14.exe from 46.249.62.199
+  Sw9JKmXqaSj.exe from 46.249.62.199
+  troll1.jpg which is really an executable from 209.141.55.226
+  win.png from 85.143.218.7 which is another executable
+  tin.png executable from 85.143.218.7
+  sin.png executable from 85.143.218.7
+
+The sha256 sums for these files are attached in an image file. Virus Total identifies these as Bokbot and Trickbot.
+
+There is post infection traffic from the host to 190.146.112.216 which gathers financial info as well as usernames and passwords. There are also post requests to 190.146.1112.216:8802 enumerating information 
+about the host system and domain. Ruby's computer should be disconnected from the network and reimaged/remediated as soon as possible. She should also change all of her passwords.
+
