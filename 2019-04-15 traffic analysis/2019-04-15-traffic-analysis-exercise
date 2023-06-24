@@ -1,0 +1,44 @@
+pcap provided by https://www.malware-traffic-analysis.net/2019/04/15/index.html
+
+
+Executive summary:
+   On 2019-04-15 at 16:42 UTC, a Windows host used by kim.jooyoung was infected with Ursnif. Later, at 21:24 UTC the same host was also infected with AZORult malware.
+
+Details of the infected Windows Host:
+	IP address: 10.0.90.175
+	MAC address: Dell_b1:53:fa (d0:67:e5:b1:53:fa)
+	Host name: SEOUL-4A6-PC
+	Windows user account name: kim.jooyoung
+
+Indicators of Compromise:
+
+  Windows executable download from ljeffrey54ae[.]top at 91.240.87.19 over port 80: 
+        GET request for /skoex/po2.php?\=cupk6.fgs 
+        SHA256: 50007a82f044a695ec9c1cfcc7a495211061112ea6a927710ebd3e6c4409e3a2
+        Virus Total identifies this as Oldshine.exe and is Ursnif malware.
+  ksoniay95ee.info at 37.230.112.226, downloaded image over port 80
+  IP self-lookup to myip.opendns.com at 208.67.222.222  
+  GET request to 151.106.27.208 over port 80 for client.rar
+  zindv[.]club at 185.139.69.88 over TLSv1.2 port 443. Invalid Certificate.
+  GET request to 89.163.144.224 over port 80 for klansfuuerifneiferunfasd/modules/client/rar 
+  adsfinder[.]xyz at IP 185.158.249.39 TLS over port 443. Invalid Certificate.
+  GET request for /azor.rar at IP 162.213.250.131 over port 80
+  TLS traffic over port 443 to 185.136.169.160
+  TLS port 443 traffic to 198.54.115.53 and 198.54.125.57
+  TLS port 443 traffic to qqtube at 109.230.199.24. Invalid Certificate.
+  TLS port 443 traffic to parolinos[.]xyz at 176.10.125.110. Invalid Certificate.
+  TLS port 443 traffic to adsfinder[.]xyz at 185.158.249.39. Invalid Certificate.
+  Many connection attempts to pompeiii[.]org at 208.91.197.91 over port 443.
+  Post infection POST traffic to 85.114.134.49 (index.php) over port 80. Indicative of AZORult from alerts
+
+
+
+
+
+The host details can be found in the starting NBNS, DNS, and Kerberos traffic. The basic filter 'http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns' will help reveal most of the IOCs. The GET
+requests and downloads over Port 80 should be immediately indicative of malware. There is lots of encrypted TLS traffic. Although the content is unreadable, the certificates provided by the host servers can
+be investiaged A good Wireshark filter for this is 'Tls.handshake.type==11'. All of the provided certificates have fake and bogus information. Virus Total correctly indentifies the download from ljeffrey54ae[.]top
+as Ursnif malware. Later on, there is POST traffic to 85.114.134.49. These IOCs can all be found without the provided alerts. However, the alerts helpfully identify the traffic to 85.114.134.49 as AZORult 
+communications, and catch the multiple connection attempts to pompeiii[.]org which can be easy to miss. 
+
+
