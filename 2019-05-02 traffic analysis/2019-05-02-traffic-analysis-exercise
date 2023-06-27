@@ -1,0 +1,28 @@
+Pcap provided by https://www.malware-traffic-analysis.net/2019/05/02/index.html
+
+Executive summary:
+   on 2019-05-02 at 21:36 UTC, a Windows host used by Adriana Breaux was infected with Hawkeye Keylogger.
+
+Details of the infected Windows Host:
+
+	IP address: 10.0.0.227
+	MAC address: Dell_09:86:c0 (84:8f:69:09:86:c0)
+	Host name:  Breaux-Win7-PC
+	Windows user account name: adriana.breaux
+
+Indicators of Compromise:
+
+FTP communications to 145.14.145.10 using ports 40651 and 47434 for data exfiltration, and 21 for FTP control commands at files.000webhost.com.
+FTP communications to 145.14.145.4 using port 37280 for data exfiltration, and 21 for FTP control commands at files.000webhost.com.
+FTP communications to 145.14.145.99 using port 35396 for data exfiltration, and 21 for FTP control commands at files.000webhost.com.
+IP self lookup to 104.16.154.36 (whatismyipaddress.com) over port 80.
+DNS port 53 queries for files.000webhost.com
+
+
+
+
+The host information can be found from the NBNS, DNS, and Kerberos traffic near the start of the provided pcap. My basic starting filter 'http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns' leaves
+very few packets to look through. Immediately noticeable is a self IP lookup request. This can be non-malicious behavior, but warrants investigating. Looking at the protocol heirarchy in Wireshark, the vast
+amount of packets are related to FTP, so that should be the next focus. Looking through these FTP packets reveals lots of data transfers to 145.14.145.XX. This handily includes the name of the malware, Hawkeye keylogger.
+The command 'ftp-data.command' helps to focus on the important data transfers. Looking through traffic to these IPs, we can see that the adversary has stolen several passwords and screenshots of the host system and
+exfiltrated them. FTP is sent in the clear, so we can also find the login details for the malicious FTP traffic (user snifferzett with password trible22).
