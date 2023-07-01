@@ -1,0 +1,23 @@
+pcap provided by https://www.malware-traffic-analysis.net/2019/06/22/index.html
+
+Executive summary:
+   On 2019-06-22 at 23:48 UTC, a Windows host 10.0.76.109 used by Edris Haight was infected with KPot stealer.
+ 
+Details of the infected Windows Host:
+
+	IP address: 10.0.76.109
+	MAC address: Dell_DA:A5:FE (78:2B:CB:D4:A5:FE)
+	Host name: Bangkok-8ac2-pc
+	Windows user account name: edris.haight
+
+Indicators of Compromise:
+GET request on port 80 to 37.46.135.170 for some very long extensions starting with /?MTQwMjg... and another immediately after for /?MTg0MzEy... . Followed by two more for /?MzU4Nja... and /?NDk4MTE5... . This is the rig exploit kit at work.
+GET request on port 80 to fghjkmgru34[.]site at 8.209.83.76 for ?gQBljYzDJBnrt4JX/gate.php.
+POST request to fghjkmgru[.]site at 8.209.83.76 (Post infection traffic).
+KPOT stealer SHA256: 39be5610259ffade85599720ee0af31187788a00791f1e4cb0cd05ef00105eda
+
+
+There are a few hosts in this pcap, but the alerts narrow it down to the most suspicious host, 10.0.76.109. The username for this host can be found with the filter 'kerberos.CNameString and !(kerberos.CNameString contains '$')'.
+To start, I began with the filter '(http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns) && ip.addr==10.0.76.109'. There are very few packets remaining, and the requests to 37.46.135.170 stand out
+as most users never directly search for a website using the IP address. This is where the exploit kit is able to find a vulnerability so the KPot stealer can be downloaded. Later, the post infection traffic
+can be seen going to 8.209.83.76. The malware executable is included in this packet capture and will be a great target to look at in the REMnux setup. Searching for this SHA256 sum on Virus Total reveals that it is indeed a malicious sample.
