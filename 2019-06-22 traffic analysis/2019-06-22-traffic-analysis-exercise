@@ -21,3 +21,6 @@ There are a few hosts in this pcap, but the alerts narrow it down to the most su
 To start, I began with the filter '(http.request or ssl.handshake.type==1 or tcp.flag eq 0x0002 or dns) && ip.addr==10.0.76.109'. There are very few packets remaining, and the requests to 37.46.135.170 stand out
 as most users never directly search for a website using the IP address. This is where the exploit kit is able to find a vulnerability so the KPot stealer can be downloaded. Later, the post infection traffic
 can be seen going to 8.209.83.76. The malware executable is included in this packet capture and will be a great target to look at in the REMnux setup. Searching for this SHA256 sum on Virus Total reveals that it is indeed a malicious sample.
+
+
+I take a quick look at this malicious file in REMnux here: https://github.com/Jon1090/Malware-analysis/blob/main/Kpot-stealer/Kpot-stealer-writeup
