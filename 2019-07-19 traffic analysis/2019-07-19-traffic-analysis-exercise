@@ -1,0 +1,26 @@
+pcap provided by: https://malware-traffic-analysis.net/2019/07/19/index.html
+
+Executive summary:
+    On 2019-07-19 at 18:53 UTC, a Windows host 172.16.4.205 used by Matthijs Devries was infected with a RAT delivered by SocGholish campaign.
+
+Details of the infected Windows host:
+    IP address: 172.16.4.205
+    MAC address: LenovoEM_b0_63_a4 (00:59:07:b0:63:a4)
+    Host name: Rotterdam-PC
+    Windows username: matthijs.devries
+
+Indicators of compromise:
+  IP address 185.243.115.84 (b5689023.green.mattingsolutions.co) is the SocGholish delivery campaign from the compromised site mysocalledchaos.com (192.62.111.64).
+  POST requests to /empty.gif at 185.243.115.84 over TCP port 80
+  POST request to /empty.gif?ss&ss1img at 185.243.115.84 which are PNG screenshots of the desktop
+  Post infection traffic to 31.7.62.214 (multiple POST requests to http://31.7.62.214/fakeurl.htm)
+  93.95.100.178 Free Let's Encrypt Authority Certificate (not in the alerts) folowed by encrypted traffic
+
+
+The host information can be found by the early NBNS traffic and the username can be found in the Kerberos traffic. This is a large pcap so the alerts can greatly help narrow down where to look. The alerts identify the delivery campaign
+as SocGholish. SocGholish presents fake updates for browsers which actually delivers driveby downloads. The POST requests to an empty gif are suspicious, and the PNG posts can be exported to look at the host user's desktop. There is a large
+amount of post infection traffic to 31.7.62.214. The alerts identify this as NetSupport Remote Admin Checkin RAT. Other interesting traffic isfrom  93.95.100.178 because it uses a free and suspicious certificate followed by encrypted traffic.
+Searching for this IP on Virus Total shows that users have identified it as early as May of 2019 as spreading malware through pushing fake updates. The writeup provided by Brad Duncan reveals that this IP delivered the malicious .js file 
+to kick off the infection, but it can't be found in our pcap due to the encryption over TLS. 
+
+
