@@ -1,0 +1,31 @@
+pcap provided by: https://malware-traffic-analysis.net/2019/08/20/index.html
+
+Executive summary:
+    On 2019-08-20 at 19:31 UTC, a Windows host 10.8.20.101 used by Reginald Chandler was infected with Ursnif and Trickbot.
+
+Details of the infected Windows host:
+    IP address: 10.8.20.101
+    MAC address: ASUSTekC_a6:01:92 (00:18:f3:a6:01:92)
+    Host name: TAMPA-OFFICE-PC
+    Windows username: reginald.chandler
+
+Indicators of compromise:
+	GET request to 94.103.87.160 (bh79sbu[.]com) on port 80 for /qtra/ttqr.php?l=csuv3.j12 which is a Windows Executable (the Ursnif executable)
+	3 GET requests to 94.103.86.146 (hne53brianaea[.]com)over port 80 for 3 images with long random strings
+	GET request to 139.198.5.65 (activity.qingcloud[.]com) over port 80 for 4antifreeze.rar (Trickbot)
+	GET request to 206.189.74.47 (idogoiania[.]com[.]br) over port 80 for 3antifreeze.rar (Trickbot)
+	GET request to 68.183.185.221 (boozzdigital[.]com) over port 80 for antifreeze.rar (Trickbot)
+	SSL/TLS traffic to 89.105.203.184 over port 443
+	SSL/TLS traffic to 185.117.75.41 over port 447
+	SSL/TLS traffic to 191.37.181.152 over port 449
+	Series of DNS requests for resolver1.opendns[.]com and myip.opendns[.]com
+	TLS traffic to 185.193.141.166 (kjoanaxbrennan[.]top) over port 443 (Using fake certificate information)
+	GET request to 185.183.98.232 over port 80 for samerton.png which is actually a Windows Executable
+	POST requests over port 8082 to 170.238.117.187 sending data about the TAMPA-OFFICE-PC
+	GET request over port 80 to 185.183.98.232 for /tablone.png which is really a Windows Executable
+	GET request over port 80 to 185.183.98.232 for /wredneg2.png which is really a Windows Executable
+	
+
+The host 10.8.20.101 was first infected with Ursnif, which then downloaded Trickbot. The MD5 sum of the Ursnif download ttqr.php?l=csuv3.j12 is: af442fcdcf8d2967ec463d92a25f7ac8. This sample
+is known malware and is flagged by Virus Total. Ursnif then downloads Trickbot as a series of antifreeze.rar downloads. Then there is lots of SSL/TLS traffic with fake certificates. Host information
+is exfiltrated to 170.238.117.187. More Trickbot extenions are downloaded as fake png files from 185.183.98.232. 
