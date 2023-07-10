@@ -1,0 +1,31 @@
+pcap provided by: https://malware-traffic-analysis.net/2019/11/12/index.html
+
+This pcap exercise is framed more as a scavenger hunt. Here are the answers to the provided questions:
+	
+
+Date onf infection: 2019-11-12
+
+OS and device with IP 10.11.11.94: HonHaiPr_d0:91:9d (38:b1:db:d0:91:9d), ChromseOS on a Chromebook (CrOS x86_64)
+OS and device with IP 10.11.11.121: MurataMa_37:20:9c (b8:d7:af:37:20:9c), Samsung Galaxy Note 8
+Manufacturer of IP 10.11.11.145: Motorola_bc_2d:98 (bc:ff:eb:bc:2d:98), Motorola
+OS and device with IP 10.11.11.179: Catalina (10.15.1) on a Mac
+Windows version of host with IP 10.11.11.195: Windows 10 (NT 10.0)
+User account for host with IP 10.11.11.200: brandon.gilbert
+OS and device for host with IP 10.11.11.217: iPadOS 13.2.2 on iPad
+IP of Windows host that downloaded .exe over http: 10.11.11.203 downloaded an .exe (40group.tiff) from acjabogados[.]com (188.95.248.71)
+SHA256 and detection rate on Virus Total 8d5d36c8ffb0a9c81b145aa40c1ff3475702fb0b5f9e08e0577bdc405087e635, 60/70 engines detect this.
+Public IP host tried to reach after downloading the malware: 138.201.6.195 and 5.188.108.58
+User and Windows host for the IP that downloaded malware: Candice.tucker, Dell_3a:45:72 (a4:ba:db:3a:45:72), Tucker-Win7-PC
+
+What is this malware? I will take a quick look using REMnux.
+Clamscan identifies this as Win.Dropper.Trickbot-7375649-0, compiled from Visual Basic. Hybrid Analysis detects this as Mansabo, an alias for Trickbot.
+The three sections are .text (entropy: 6.46), .data, and .rsrc (entropy: 5.17). The spoofed company name: Atmoic Inc. Production. The file description is "Get a Quote Today".
+The original file name was "Santo Maris Oia.exe". An interesting string pulled from the file is "Canaves Oia Hotel & Suites". Perhaps this trojan presented itself as a fake hotel/resort
+at one point. A couple of suspicious API calls are made to VirtualAlloc, RegOpenKeyExA, RegQueryValueExa, and GetKeyState among others. This is certainly malware. More research can
+be done by googling Trickbot and looking through it's many capabilities.
+
+
+How to find OS and devices from a pcap: I generally look for an HTTP request since these will include identifying information about the host. Sometimes these can be cryptic (especially
+for phone models), so it is advisable to google the device information included in the pcap. Finding the user accounts is a matter of combing through the Kerberos packets. A great filter
+for this is 'kerberos.CNameString and !(kerberos.CNameString contains '$')'. This is a very large pcap and filtering by http.request and the known Windows IPs to find the Windows executable
+still leaves a lot to sort through. The packets can be searched for the strings: "MZ" or any part of "This program can not be run in DOS mode" to find the executable right away.  
