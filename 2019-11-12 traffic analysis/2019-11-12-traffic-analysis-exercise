@@ -28,4 +28,4 @@ be done by googling Trickbot and looking through it's many capabilities.
 How to find OS and devices from a pcap: I generally look for an HTTP request since these will include identifying information about the host. Sometimes these can be cryptic (especially
 for phone models), so it is advisable to google the device information included in the pcap. Finding the user accounts is a matter of combing through the Kerberos packets. A great filter
 for this is 'kerberos.CNameString and !(kerberos.CNameString contains '$')'. This is a very large pcap and filtering by http.request and the known Windows IPs to find the Windows executable
-still leaves a lot to sort through. The packets can be searched for the strings: "MZ" or any part of "This program can not be run in DOS mode" to find the executable right away.  
+still leaves a lot to sort through. The packets can be searched for the strings: "MZ" or any part of "!This program cannot be run in DOS mode" to find the executable right away.  
