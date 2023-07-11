@@ -1,0 +1,7 @@
+pcap provided by: https://malware-traffic-analysis.net/2019/12/25/index.html
+
+On 2019-12-25 at 06:45 UTC, a web server with IP address 128.199.64.235 (internal IP address of 10.12.25.101) was probed/scanned by IP 139.199.184.166. 
+
+This pcap file doesn't present any malware. Looking at the packets, it becomes quickly apparent that someone is trying to scan the server to look for an exploit. There are numerous requests for slightly modified page names that return 404 errors in rapid succession, suggesting an automated scan. Among other things, the attacker seeks a login page by searching for
+variations of pages like /admin or /phpadmin. Near the start of the capture, there is a request for robots.txt. This is a way a scanner could try and grab a page listing for the site and find more attack vectors. If you have experience scanning your own systems in virtual labs, this pcap is very straightforward to figure out what is going on. By the looks of it, 
+this attacker didn't have success.
