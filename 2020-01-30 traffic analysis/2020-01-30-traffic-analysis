@@ -1,0 +1,20 @@
+pcap provided by: https://malware-traffic-analysis.net/2020/01/30/index.html
+
+Executive summary:
+    On 2020-01-30, a Windows host 10.20.30.227 used by Alejandrina Hogue was infected with Hancitor malware.
+
+Details of the infected Windows host:
+    IP address: 10.20.30.227
+    MAC address: IntelCor_77:9b:3c (58:94:6b:77:9b:3c)
+    Windows username: alejandrina.hogue
+
+Indicators of compromise:
+	GET request on port 80 to gengrasjeepram[.]com/sv.exe (49.51.133.162) for sv.exe (Hancitor malware)
+  GET request to api.ipify[.]org (184.73.165.106). Host's external IP is 173.166.146.119
+  POST requests to 81.177.6.156 (twereptale[.]com) over port 80 to /mlu/forum.php, /4/forum.php, and /d2/about.php (Hancitor traffic/checkins)
+  GET request to xolightfinance[.]com (148.66.137.40) for /bhola/images/1 and /bhola/images/2
+  SHA256 of Hancitor malware: 995cbbb422634d497d65e12454cd5832cf1b4422189d9ec06efa88ed56891cda
+
+
+Alejandrina Hogue was infected with Hancitor malware from gengrasjeepram[.]com. Virus Total has strong detection rates for this malware. The Window's username can be found by investigating the Kerberos traffic. The executable download over HTTP sticks out as it isn't disguised as a .png or .jpg like many other
+malware executables try. This download is immediately followed by a suspicious self IP lookup and then unusual traffic to twereptale[.]com and xolightfinance[.]com. This is a pretty straight forward pcap file. Alejandra may have clicked on a link from an email that led to the .exe download.
