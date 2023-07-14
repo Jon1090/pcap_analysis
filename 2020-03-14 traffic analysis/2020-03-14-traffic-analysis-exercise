@@ -1,0 +1,29 @@
+pcap provided by: https://malware-traffic-analysis.net/2020/03/14/index.html
+
+Executive summary:
+    On  2020-03-11 at 21:24 UTC, a Windows host 10.3.11.194 used by Otis Witherspoon was infected with Trickbot.
+
+Details of the infected Windows host:
+    IP address: 10.3.11.194
+    MAC address: Dell_ec:3b:8f (b8:ca:3a:ec:3b:8f)
+    Host name: LAPTOP-7XMV2SN
+    Windows username: otis.witherspoon
+
+Indicators of compromise:
+	
+  GET request over port 80 for bolton-tech[.]com/YAS20.exe (50.87.246.17). This is the Trickbot download.
+  TLS traffic to 45.148.120.153 over port 443 (Feodo Tracker CnC Server)
+  TLS traffic to 51.254.164.244 over port 443 (Feodo Tracker CnC Server)
+  TLS traffic to 190.214.13.2 over port 449 (Feodo Tracker CnC Server)
+  TLS traffic to 185.14.31.98 over port 447 (Trickbot/Dridex CnC certificate)
+  GET request to checkip.amazonaws[.]com (18.235.112.207) over port 80
+  GET request to 64.44.133.131 for /images/imgpaper.png over port 80 (really a windows .exe)
+  GET request to 64.44.133.131 for /images/cursor.png over port 80 (really a windows .exe)
+  POST requests to 203.176.135.102 over port 8082 to /yas20/
+  Encrypted TLS traffic to 209.97.130.197 over port 443 (helpforyourservice[.]com) with suspicious certificate
+  Encrypted TLS traffic to 199.247.13.144 over port 443 (hakunamatatata[.]com) with suspicious certificate
+  YAS20.exe MD5 hash: c74656862b16f81d02c109030260245b  (Trickbot)
+
+
+  There are three users on this domain, but only one user was infected. Host 10.3.11.194 downloaded Trickbot malware from bolton-tech[.]com. This then led to multiple encrypted channels to known CnC servers. Some more extensions for Trickbot were downloaded from 64.44.133.131. Several usernames and passwords
+  were exfiltrated from the host and sent to 203.176.135.102. Checking the hash of the downloaded file YAS20.exe on Virus Total reveals that it is indeed Trickbot.
