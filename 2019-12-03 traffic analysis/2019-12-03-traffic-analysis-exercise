@@ -1,0 +1,24 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2019/12/03/index.html
+
+Executive summary:
+    On 2020-012-03 at 22:47 UTC, a Windows host 10.18.20.97 used by Momia Juanita was infected with Ursnif.
+
+Details of the infected Windows host:
+    IP address: 10.18.20.97
+    MAC address: Acer_56:9b:cf (00:01:24:56:9b:cf)
+    Host name: Juanita-work-pc
+    Windows username: momia.juanita
+
+Indicators of compromise:
+  GET request to w8.wensa[.]at (8.208.24.139) over port 80 for /api1/Pubkl...., /api1Io1zep..., /api1/yHuijzB...., and /api1/QqPIxa1.... ("...." denotes a very long file name)
+  POST requests to h1.wensa[.]at (8.208.24.139) over port 80 to /api1/Ndykqb....  and /api1/4G0Wr6w.... and many others
+  GET request to 8.208.24.139 (api2.casus[.]at) over port 80 for /jvassets/xI/t64.dat (Ursnif requesting followup data)
+  Multiple DNS requests for myip.opendns.com
+  Encrypted TLS traffic to 35.190.72.161 with Let's Encrypt untrusted certificate
+  Encrypted TLS traffic to 35.190.36.172 Let's Encrypt untrusted certificate
+  Encrypted TLS traffic to 134.209.129.254 Let's Encrypt untrusted certificate
+
+This is a fairly typical Ursnif infection with typical traffic. There are multiple GET requests for /api1/, a followup .dat file, IP self-lookup attempts, and https traffic using untrustworthy certificates.
+This infection likely came from a malicious email, as Momia was browsing AOL mail directly preceding the infection. After the infection, Momia browsed to multiple banking websites, and her credentials and 
+information were very likely stolen. Learn more about investigating Ursnif traffic here: https://unit42.paloaltonetworks.com/wireshark-tutorial-examining-ursnif-infections/
+  
