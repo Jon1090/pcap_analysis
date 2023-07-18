@@ -1,0 +1,40 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2020/05/28/index.html
+
+Executive summary:
+    On 2020-05-28 at 17:56 UTC, a Windows host 10.5.28.229 used by Phillip Ghent was infected with Trickbot.
+
+Details of the infected Windows host:
+    IP address: 10.5.28.229
+    MAC address: HewlettP_1c:47:ae (00:08:02:1c:47:ae)
+    Host name: CAT-BOMB-W7-PC
+    Windows username: phillip.ghent
+
+Indicators of compromise:
+	GET request to api.ipify[.]org (50.19.115.217) returns host's external IP address of 173.166.146.112
+  POST requests to 36.89.106.69 to /yas33/CAT-BOMB-W7-PC....
+  TLS communication over port 447 to 192.3.247.116
+  POST request to 203.176.135.102 to /yas33/CAT-BOMB-W7-PC 
+  GET request for /ico/VidT6cErs to 162.216.0.1163 over port 80.
+  GET request to wtfismyip[.]com (69.195.159.158) over port 80. 
+  GET request to icanhazip[.]com (116.202.55.106) over port 80.
+  GET request to 162.216.0.163 for /images/imgpaper.png which is a Windows Exe 
+    SHA256 934c84524389ecfb3b1dfcb28f9697a2b52ea0ebcaa510469f0d2d9086bcc79a
+  GET request to 162.216.0.163 over port 80 for /images/cursor.png which is a Windows Exe
+    SHA256 4e76d73f3b303e481036ada80c2eeba8db2f306cbc9323748560843c80b2fed1
+  TCP traffic over port 447 to 62.108.35.43
+  TLS traffic over port 447 to 23.92.93.227
+  DNS port 53 query for 5efxqhk2zhgnc24l[.]onion
+  POST request to 203.176.135.202 over port 8082 to /jim734/CATBOMBER-DC....
+  TLS traffic over port 443 to 5.1.81.68
+
+Answers to this week's questions:
+CAT-BOMB-W10-PC timothy.sizemore
+10.5.28.8 Netgear_b6:93:f1 (20:e5:2a:b6:93:f1), CATBOMBER-DC
+10.5.28.229 HewlettP_1c:47:ae (00:08:02:1c:47:ae), CAT-BOMB-W7-PC, phillip.ghent | gh3ntf@st, outlook password: ARXRPHEBMXNZHSSP
+
+The Trickbot generated TLS traffic uses lots of fake certificates from GB, London, claiming to be the IT department of Global Security. The common name is listed as example.com. The SHA256 sums of the downloaded
+executables are identified by Virus Total as Emotet. The data that Trickbot discovers and exfiltrates over HTTP POST requests can be used to obtain most, if not all of the identifying information for the hosts
+on the network.
+
+
+
