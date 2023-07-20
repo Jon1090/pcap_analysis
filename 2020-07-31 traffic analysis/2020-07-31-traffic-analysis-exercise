@@ -1,0 +1,25 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2020/07/231/index.html
+
+Executive summary:
+    On 2020-07-31 at 00:26 UTC, a Windows 10 host 10.7.31.101 used by Gregory Simmons was infected with Emotet.
+
+Details of the infected Windows host:
+    IP address: 10.7.31.101
+    MAC address: ASUSTekC_12:af:38 (00:0c:6e:12:af:38)
+    Host name: DESKTOP-DPHW305
+    Windows username: gregory.simmons
+
+Indicators of compromise:
+  GET request over port 80 to e-dsm[.]com[.]br (191.6.208.51) for /www/ZdJCAB/ (an MS Word file "INVOICE0OR85-923315.doc")
+  GET request over port 80 to jambino[.]us (67.20.112.81) for /tv/DYsPb (a Windows Executable)
+  POST requests over port 80 to 201.235.10.215 to /RLVIcV.... and /M7aBeffy....
+  POST requests over port 8080 to 104.236.52.89 to /y10c/CRT...., /LcWzY47X...., and many others
+  POST requests over port 80 to 201.235.10.215 to /2l0JG5...., /qKSwAKe....., and /o9O08G.... amongst many others
+  GET request over port 8080 to 104.236.52.89 for /whoami.php (returns host's external IP address: 173.66.6.97)
+  POST request over port 8080 to 104.236.52.89 to /xian/balloon
+  Emotet DysPb MD5 hash: b7ec256bd8cdb13ec031c4595514666e
+  MS doc INVOICE0OR85-923315.doc MD5 hash: bee97c2cd32806d16640a8c1ed4e080f
+
+
+  The user opened a malicious Word document from e-dsm[.]com[.]br and enabled macros that fetch Emotet. Emotet was then downloaded from jambino[.]us. Both of these files are flagged on Virus Total by their respective
+  hash values. There is numerous Emotet post infection traffic to 201.235.10.215 and 104.236.52.89. Learn more about Emotet infections here: https://unit42.paloaltonetworks.com/wireshark-tutorial-emotet-infection/
