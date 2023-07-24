@@ -1,0 +1,24 @@
+pcap provided by: https://malware-traffic-analysis.net/2020/08/21/index.html
+
+Executive summary:
+    On 2020-08-21 at 15:04 UTC, a Windows 10 host used by Matthew Jones was infected with IcedID.
+
+Details of the infected Windows host:
+    IP address: 10.8.21.163
+    MAC address: ASUSTekC_0a:f2:85 (10:c3:7b:0a:f2:85)
+    Host name: DESKTOP-OF4FE8A
+    Windows username: matthew.jones
+
+Indicators of compromise:
+  GET request over port 80 to 45.12.4.190 (ncznw6a[.]com) for /dujok/kevyl.php?l=ranec11.cab (which is a Windows Exe)
+  MD5 hash of kevyl.php?l=ranec11.cab: a52a1e151bf4b993efcff87b3780d731
+  TLS traffic over port 443 to ubbifeder[.]cyou, siesetera[.]club, ciliabba[.]cyou, (all 89.44.9.186). This IP uses a fake TLS certificate
+  TLS traffic over port 443 to 45.147.231.132 (ldrbraco[.]casa) using a fake certificate
+
+
+
+Although the alerts tag this malware as Ursnif, it is indeed IcedID. This can be confirmed by checking the hash sum for the file kevyl.php?l=ranec11.cab on Virus Total. IcedID is a banking malware that targets
+financial credentials. Like usual, the Windows username can be found in the Kerberos packets. The requests and traffic to the domains ending in .cyou and .casa are immediately suspicious. Investigating their
+TLS certificates reveals that they are faked. Although we can't see the traffic itself due to encryption, there is enough information to conclude they are malicious domains.
+
+
