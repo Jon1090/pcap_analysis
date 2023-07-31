@@ -1,0 +1,20 @@
+pcap provided by: https://malware-traffic-analysis.net/2020/09/25/index.html
+
+Executive summary:
+    On 2020-09-24 at 22:41 UTC, a Windows 10 host 10.0.0.179 used by Ronaldo Paccione was infected with Agent Tesla.
+
+Details of the infected Windows host:
+    IP address: 10.0.0.179
+    MAC address: ASUSTekC_34:b2:d0 (00:0c:6e:34:b2:d0) 
+    Host name: DESKTOP-M1JC4XX
+    Windows username: ronaldo.paccione
+
+Indicators of compromise:
+	GET request over port 80 to 198.12.66.108 for jojo.exe (Agent Tesla exe)
+	TLS communication to 37.120.174.218 (paste[.]nrecom[.]net) over port 443 with Let's Encrypt certificate
+	TLS communication to 54.235.98.120 (api[.]ipify[.]org) over port 443 for self IP lookup.
+	SMTP traffic to 185.61.152.63 (mail[.]big3[.]icu over port 587
+  jojo.exe MD5: ad6564701054b692bcf47b5feb6324a2
+
+The data exfiltrated over SMTP is using port 587 but not encrypted. We can see the emails stealing password, cookie, and other data from the host. Total virus tags this malware as agensla, which is Agent Tesla.
+Agent Tesla is a RAT (remote access trojan) that harvests user data, credentials, and information. Learn more about it here: https://attack.mitre.org/software/S0331/.
