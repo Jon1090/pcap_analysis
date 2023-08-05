@@ -1,0 +1,33 @@
+pcap provided by: https://malware-traffic-analysis.net/2020/10/22/index.html
+
+Executive summary:
+    On 2020-10-22 at 20:34 UTC, a Windows host used by Byron Ostrander was infected with Trickbot/Emotet.
+
+Details of the infected Windows host:
+    IP address: 10.72.33.165
+    MAC address: IntelCor_4b:25:a7 (0c:d2:92:4b:25:a7)
+    Host name: DESKTOP-5I7XDSY
+    Windows username: byron.ostrander 
+
+Indicators of compromise:
+	TCP over port 80 to 85.246.78.192
+	HTTP traffic over port 8080 to 188.226.165.170 making multiple post requests (/r3roIysJnN01/, /TCs7HJ..., /W5270F)
+	TCP traffic over port 8080 to 104.236.52.89
+	TLS traffic over port 449 to 103.109.78.174
+	DNS query for zen.spamhaus[.]org over port 53
+	DNS query for cbl.abuseat[.]org over port 53
+	TCP traffic over port 447 to 45.148.120.152
+	TCP traffic over port 443 to 104.161.32.111
+	POST requests to 45.89.127.92 over port 443 exfiltrating host data
+	TLS traffic to 103.109.78.174 over port 449
+	IP lookup to 188.226.165.170 (whoami.php) over port 8080
+	POST request to 104.236.52.89 over port 8080
+	POST request to 162.214.68.171 over port 8080
+	Numerous DNS requests for different mail servers over port 53 (mail.runkeeper[.]com, mail.gmail[.]com, smtp.8card[.]net, etc)
+	Abundant SMTP spam generation over ports 587 and 25
+  Numerous more indicators
+
+This pcap file is loaded with IOCs. There is clear exfiltration of host data on known suspicious ports (447 and 449) common to Emotet and Trickbot. The alerts and provided malware samples confirm this. The malware
+begins generating tons of SMTP traffic around 21:03 UTC as a spambot. From the forensic report, we can see that Byron most likely got infected from clicking a link in his email to an "invoice.doc" which is saved
+in the Downloads file of his computer. Other suspicious files that were most likely fetched after the invoice.doc was opened are: \PATHPING.exe in the \AppData folder, \launcher.bat, and \getuname7ce.exe. Several of
+the TLS conversations in this pcap use known fake certificates (internet widgits). You can learn more about Trickbot infections here: https://unit42.paloaltonetworks.com/wireshark-tutorial-examining-trickbot-infections/
