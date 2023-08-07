@@ -1,0 +1,27 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2020/11/13/index.html
+
+Executive summary:
+    On 2020-11-13 at 00:26 UTC, a Windows host used by Craig Alda was infected with IcedID, and at 09:39 UTC, the same host was infected with Cobalt Strike.
+
+Details of the infected Windows host:
+    IP address: 192.168.200.8
+    MAC address: HewlettP_1c:47:ae (00:08:02:1c:47:ae)
+    Host name: DESKTOP-JH1UZAE
+    Windows username: craig.alda 
+
+Indicators of compromise:
+  GET request over port 80 to 205.185.113.20 for /BVd1qKwd, a Windows exe (IcedID)
+  GET request over port 80 to 205.185.113.20 for /files3.dll (IcedID)
+  TLS traffic over port 443 to 143.110.191.95 (lezasopedrill[.]cyou) with Internet Widgits certificate
+  TLS traffic over port 443 to 192.211.99.24 (timerdisclaimer[.]pw and compactmuslimsdeport[.]pw)
+  GET request over port 80 to 185.141.24.71 for winnit.exe (Cobalt Strike)
+  GET requests over port 80 to 185.141.24.71 (webintercom76delivery[.]net) for /updates.rss
+  POST requests over port 80 to 185.141.24.71 (webintercom76delivery[.]net) to /submit.php?id=123429392
+  ICMP scanning to 198.211.99.0/24, 192.168.0.0/24, 10.0.0.0/24
+  Attempted port 445 connections to 198.211.99.168
+  MD5 hash of winnit.exe: dd79e8677460856214ab5845904b43dd (Cobalt Strike)
+  MD5 hash of 3.dll 37fbb57b3513c6e9417718292a68b8ed (IcedID)
+
+
+  This pcap features two infections on the same host. First IcedID (a trojan that steals banking and finance info) and then Cobalt Strike (a penetration testing software
+  often used for malicious purposes). Cobalt Strike is responsible for the network scanning activity seen later in the file. 
