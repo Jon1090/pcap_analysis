@@ -1,0 +1,23 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2021/01/21/index.html
+
+Executive summary:
+    On 2021-01-20 at 23:40 UTC, a Windows 10 host used by Orlando McCoy was infected with Gozi/Ursnif.
+
+Details of the infected Windows host:
+    IP address: 10.1.21.101
+    MAC address: AcerLan_d3:47:8b (00:60:67:d3:47:8b)
+    Host name: DESKTOP-NB72TZA
+    Windows username: orlando.mccoy
+
+Indicators of compromise:
+	GET request to 209.141.51.196 over port 80 for /Lk9tdZ and /files/1.bin (Gozi initial infection)
+	GET request to 185.186.244.130 (greatewallfirewall[.]xyz) for /postfix/M_2FMD..., /postfix/lNKei99..., and /postfix/u00Syw... 
+	GET request to 162.0.224.165 over port 80 for /grab32.rar 
+	DNS request over port 53 for myip[.]opendns[.]com (208.67.222.222)
+	TLS traffic over port 443 to 193.239.84.250 (booloolo3[.]com) with untrusted TLS certificate (post infection Gozi traffic)
+	TLS traffic over port 443 to 84.2552.95.102 with untrusted TLS certificate (post infection Gozi traffic)
+	MD5 hash of /files/1.bin: bb6172739040ab04a078a1c61ef9a4e7
+
+
+This user was infected with Ursnif, also known as Gozi. Gozi is a banking/finance trojan and extremely common in the current malware world. You can learn more about identifyin Gozi traffic through a great tutorial
+here: https://unit42.paloaltonetworks.com/wireshark-tutorial-examining-ursnif-infections/
