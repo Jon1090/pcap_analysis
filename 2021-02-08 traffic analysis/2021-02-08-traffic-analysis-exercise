@@ -1,0 +1,26 @@
+pcap provided by: https://www.malware-traffic-analysis.net/2021/02/08/index.html
+
+Executive summary:
+    On 2021-02-08 at 16:00 UTC, a Windows 10 host used by Bill Cook was infected with Fickerstealer, Cobalt Strike, and Hancitor.
+
+Details of the infected Windows host:
+    IP address: 10.2.8.101
+    MAC address: HewlettP_41:c2:aa (00:12:79:41:c2:aa)
+    Host name: DESKTOP=MGVG60Z
+    Windows username: bill.cook
+
+Indicators of compromise:
+GET request to 45.124.85.55 (tonmatdoanminh[.]com) over port 80 for /uninviting.php (infected Word Doc that results in Hancitor infection)
+GET request to 8.208.10.147 (roanokemortgages[.]com) for 0801.bin and 0801s.bin over port 80
+GET request to 8.208.10.147 (roanokemortgages[.]com for 6lhjgfdghj.exe over port 80 (Fickerstealer)
+External IP self lookup to 54.235.147.252 (api[.]ipify[.]org) over port 80
+GET requests to 198.211.10.238 over port 8080 for /6aov and /ca
+Port 80 traffic to 185.100.65.29 (sweyblidian[.]com)
+TCP traffic over port 8080 to 198.211.10.238
+POST request to 198.211.10.238 over port 8080 to submit.php?id=3275377518
+POST requests over port 80 to 213.5.229.12 (satursed[.]com) to /8/forum.php
+MD5 sum of 6lhjgfdghj.exe: 77be0dd6570301acac3634801676b5d7
+
+The first infection was Hancitor due to a malicious Word document obtained through /uninviting.php. Cobalt Strike and Fickerstealer were soon to follow. Fickerstealer is a relatively new (August 2020)
+information stealer that is sold as a Malware as a service (MaaS), and generally distributed through email. There is tons of check-in traffic and communication between our host and malware servers most
+likely exportin encrypted information.
