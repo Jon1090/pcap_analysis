@@ -1,0 +1,26 @@
+pcap provided by: https://malware-traffic-analysis.net/2021/07/14/index.html
+
+Executive summary:
+    On 2021-07-14 at 20:31 UTC, a Windows host used by Samantha Reed was infected with Dridex
+
+Details of the infected Windows host:
+    IP address: 172.16.1.239
+    MAC address: ASUSTekC_10:05:25 (00:13:d4:10:05:25)
+    Host name: DESKTOP-F3P7XLU
+    Windows username: samantha.reed
+
+Indicators of compromise:
+	GET requests over port 8088 to insiderushings[.]com (185.21.216.153) for /wp-content/Receipt-9650354.xls?evagk=2MyeEdhGPszYX (Labeled as Invoice 9650354 from Quickbooks, LLC)
+	GET request over port 8088 to buyer-remindment[.]com (185.21.216.153) for /templates/file6.bin (a Microsoft executable/Dridex)
+	HTTP traffic from 81.17.23.125 to 172.16.1.239 over port 443 (reverse web shell)
+	TLS traffic to 202.29.60.34 over port 443 with suspicious certificate
+	TLS traffic to 84.232.252.62 over port 443 with suspicious certificate
+	TLS traffic to 45.145.55.170 over port 453 with suspicious certificate
+	TLS traffic to 207.244.250.103 over port 443 with suspicious certificate
+	TLS traffic to 72.11.131.199 over port 443 with suspicious certificate
+	File6.bin MD5: ea09239b2e17576e1907df8e7f4ef6a2
+	Receipt-9650354.xls MD5: 0d3e86171d4980d63304aa3a12c74c45
+
+ Samantha Reed was infected after opening up a malicious excel document spoofed as an QuickBooks invoice. This was most likely an attachment in an email that was opened. Afterwards, the dropper downloaded the Dridex executable from
+ buyer-remindment[.]com. Data can be seen being exported through a reverse web shell to 81.17.23.125. There are several TLS communication channels linked to Dridex that follow. Both downloaded files are flagged on Virus Total and 
+ detected by most antimalware products.
